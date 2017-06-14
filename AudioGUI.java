@@ -25,6 +25,7 @@ public class AudioGUI extends JFrame {   // JFrame instead of Frame
    private JTextArea jTextArea;
    private MessageConsole mc;
    static AudioFormat format = new AudioFormat(48000, 16, 1, true, true);
+   private String logString;
 
    // Constructor to setup the GUI components and event handlers
    public AudioGUI() {
@@ -62,10 +63,15 @@ public class AudioGUI extends JFrame {   // JFrame instead of Frame
       cp.add(btnStp);
 
 
-      jTextArea = new JTextArea(10, 24);
+      jTextArea = new JTextArea();
+      jTextArea.setLineWrap(true);
       jTextArea.setWrapStyleWord(true);
       //cp.add(jTextArea);
-      cp.add( new JScrollPane( jTextArea ) );
+      JScrollPane scroll = new JScrollPane( jTextArea );
+      scroll.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      scroll.setPreferredSize(new Dimension(350, 180));
+      cp.add(scroll);
       mc = new MessageConsole(jTextArea);
       mc.redirectOut();
       mc.redirectErr(Color.RED, null);
@@ -200,14 +206,16 @@ public class AudioGUI extends JFrame {   // JFrame instead of Frame
           File log;
           FileWriter logWriter;
           try{
-							log = new File("." + File.separator + "flightData" + File.separator + "remote-"+ dateForm.format(startTime) + ".log");
+              logString = "." + File.separator + "flightData" + File.separator + "remote-"+ dateForm.format(startTime) + ".log";
+							log = new File(logString);
 							logWriter = new FileWriter(log);
 						 }
 						catch(Exception e)
 						{
 							new File("." + File.separator + "flightData").mkdirs();
-              log = new File("." + File.separator + "flightData" + File.separator + "remote-"+ dateForm.format(startTime) + ".log");
-    					logWriter = new FileWriter(log);
+              logString = "." + File.separator + "flightData" + File.separator + "remote-"+ dateForm.format(startTime) + ".log";
+							log = new File(logString);
+              logWriter = new FileWriter(log);
 						}
   				logWriter.write("remote-" +dateForm.format(startTime) +".dat\n");
           logWriter.flush();
@@ -251,6 +259,7 @@ public class AudioGUI extends JFrame {   // JFrame instead of Frame
           }//end of while
           speakers.close();
           archive.close();
+          new AudioProcess(new String[] {logString});
         }
 
     }
