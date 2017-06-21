@@ -5,6 +5,7 @@ import javax.swing.event.*;
 import javax.swing.text.*;
 
 /*
+ *  https://tips4java.wordpress.com/2008/11/08/message-console/
  *  Create a simple console to display text messages.
  *
  *  Messages can be directed here from different sources. Each source can
