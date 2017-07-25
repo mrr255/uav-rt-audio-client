@@ -20,18 +20,21 @@ public class AudioProcess
     try
     {
       Scanner logr = new Scanner(log);
-      byte[] dat = new byte[0];
+      ByteArrayOutputStream bOut = new ByteArrayOutputStream();
       while(logr.hasNext())
       {	//Read Each File Name
         String curFName = logr.next();
         RandomAccessFile curF = new RandomAccessFile(path + File.separator + curFName, "r"); // Open Each File
         byte[] curB = new byte[(int)curF.length()]; //Make containing byte array
-        curF.readFully(curB); //Add to byte array
+        curF.readFully(curB);
+        bOut.write(curB); //Add to byte array
+        curB = null;
 	      curF.close();
         //Write existing Data and New data to the array
-        dat = concat(dat,curB);
+        //dat = concat(dat,curB);
       }
-
+      byte[] dat = bOut.toByteArray();
+      bOut.close();
 	//Once Done, convert Byte Array to Wav File
       AudioInputStream pcm;
       InputStream b_in = new ByteArrayInputStream(dat);

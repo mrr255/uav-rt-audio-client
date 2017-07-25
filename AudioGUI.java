@@ -16,16 +16,16 @@ import java.util.regex.Pattern;
 
 // A Swing GUI application inherits from top-level container javax.swing.JFrame
 @SuppressWarnings("serial")
-public class AudioGUI extends JFrame {   // JFrame instead of Frame
-   private JTextField tfIP;  // Use Swing's JTextField instead of AWT's TextField
-   private JTextField tfFile;  // Use Swing's JTextField instead of AWT's TextField
-   private JButton btnIP;    // Using Swing's JButton instead of AWT's Button
-   private JButton btnCon;    // Using Swing's JButton instead of AWT's Button
-   private JButton btnDis;    // Using Swing's JButton instead of AWT's Button
-   private JButton btnStp;    // Using Swing's JButton instead of AWT's Button
-   private JButton btnSav;    // Using Swing's JButton instead of AWT's Button
-   private JButton btnOpen;    // Using Swing's JButton instead of AWT's Button
-   private JButton btnPlay;    // Using Swing's JButton instead of AWT's Button
+public class AudioGUI extends JFrame {
+   private JTextField tfIP;
+   private JTextField tfFile;
+   private JButton btnIP;
+   private JButton btnCon;
+   private JButton btnDis;
+   private JButton btnStp;
+   private JButton btnSav;
+   private JButton btnOpen;
+   private JButton btnPlay;
    private String iP = "192.168.0.100";
    private boolean isConnected = false;
    private JTextArea jTextArea;
@@ -50,13 +50,12 @@ public class AudioGUI extends JFrame {   // JFrame instead of Frame
       cp = getContentPane();
       cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));   // The content-pane sets its layout
 
-      ImageIcon img = new ImageIcon(pathToFileOnDisk);
-      myFrame.setIconImage(img.getImage());
+      ImageIcon img = new ImageIcon("./logo_blue.png");
+      setIconImage(img.getImage());
 
       JPanel ip = new JPanel();
       ip.setLayout(new FlowLayout());
       cp.add(ip);
-      //ip.add(new JLabel("IP"));
       btnIP = new JButton("Select IP");
       btnIP.addActionListener(new UpdateIPListener());
       ip.add(btnIP);
